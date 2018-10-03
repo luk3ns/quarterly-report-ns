@@ -1,10 +1,8 @@
 function suitelet(request, response){
-  
-   	var Q=quarter_of_the_year(new Date());
+	var Q=quarter_of_the_year(new Date());
     var d = new Date();
     var Y = d.getFullYear();
-    if(Q==1)
-    	Y=Y-1;
+    if(Q==1) Y=Y-1;
       
   	var lastY=Y-1;
   
@@ -18,30 +16,23 @@ function suitelet(request, response){
     var vendorid = request.getParameter('custpage_vendorid');
     var vendor="";
     if(!vendorid || vendorid=="") vendor="TOTAL - ";
-    if(vendorid==25) vendor="DBA - ";
-    if(vendorid==3713) vendor="Xtreme Clutch - ";
-    if(vendorid==2346) vendor="Hawk Perfomance - ";
-    if(vendorid==4749) vendor="King Bearings - ";
-    if(vendorid==5559) vendor="Turbosmart - ";
-    if(vendorid==2995) vendor="Whiteline - ";
-    if(vendorid==17725) vendor="Pedders Suspension - ";
-    if(vendorid==27549) vendor="Xforce - ";
+    if(vendorid==1) vendor="Vendor#1 - ";
+    if(vendorid==2) vendor="Vendor#2- ";
+    if(vendorid==3) vendor="Vendor#3- ";
+    if(vendorid==4) vendor="Vendor#4 - ";
+    if(vendorid==5) vendor="Vendor#5 - ";
+    if(vendorid==6) vendor="Vendor#6 - ";
+    if(vendorid==7) vendor="Vendor#7 - ";
+    if(vendorid==8) vendor="Vendor#8 - ";
+	
 	var form = nlapiCreateForm(vendor+'Customer Quarterly Report <br><small>Summary '+lastQ+' Quarter '+Y+'</small>');
 	var date = request.getParameter('date');
 
-	
-    //var vendorid = null;
+
 	var userid = request.getParameter('custpage_userid');
     if(userid==null || userid=="" || userid=="null") userid="";
     var currency = request.getParameter('custpage_currency');
     if(currency==null || currency=="" || currency=="null") currency="";
-  	//if(userid){
-    //  var customer = nlapiLoadRecord('customer',userid);
-    //  var currency = customer.getFieldText('currency');
-   // } else{
-    //  var currency = "PLN";
-    //}
-  
 
 	var dataQ1=getTransactions(userid,'q1',Y,vendorid);
     var dataQ2=getTransactions(userid,'q2',Y,vendorid);
@@ -54,7 +45,6 @@ function suitelet(request, response){
 		 currency = dataQ1[1][0].currency;
   	if(dataQ2[0]>0)
 		 currency = dataQ2[1][0].currency;  
-   // else  currency = "EUR";
   
     var chartCurrentData='['+dataQ1[0].toFixed(0)+']';
     var chartPrevData='['+dataQ1[2].toFixed(2)+']';
@@ -71,19 +61,20 @@ function suitelet(request, response){
     totalCurrent=parseFloat(totalCurrent.toFixed(2));
     var totalPrev=parseFloat(dataQ1[2])+parseFloat(dataQ2[2])+parseFloat(dataQ3[2])+parseFloat(dataQ4[2]);
     totalPrev=parseFloat(totalPrev.toFixed(2));
-  if(Q==1){
-      dataItem=dataQ4[1];
-      csv=dataQ1[4]+dataQ2[4]+dataQ3[4]+dataQ4[4];
-      lastCurrentQtotal=parseFloat(dataQ4[0].toFixed(2));
-      lastPrevQtotal=parseFloat(dataQ4[2].toFixed(2));
-      totalCurrentQtotal=parseFloat(dataQ1[0])+parseFloat(dataQ2[0])+parseFloat(dataQ3[0])+parseFloat(dataQ4[0]);
-      totalPrevQtotal=parseFloat(dataQ1[2])+parseFloat(dataQ2[2])+parseFloat(dataQ3[2])+parseFloat(dataQ4[2]);
-      chartCurrentData='['+dataQ1[0].toFixed(2)+','+dataQ2[0].toFixed(2)+','+dataQ3[0].toFixed(2)+','+dataQ4[0].toFixed(2)+']';
-      chartPrevData='['+dataQ1[2].toFixed(2)+','+dataQ2[2].toFixed(2)+','+dataQ3[2].toFixed(2)+','+dataQ4[2].toFixed(2)+']';
-      chartCat='["Q1","Q2","Q3","Q4"]';
-      chartCurrentData2='['+(parseFloat(dataQ1[0])+parseFloat(dataQ2[0])+parseFloat(dataQ3[0])+parseFloat(dataQ4[0]))+']';
-      chartPrevData2='['+(parseFloat(dataQ1[2])+parseFloat(dataQ2[2])+parseFloat(dataQ3[2])+parseFloat(dataQ4[2]))+']';      
-      chartCat2='["Q1 - Q4"]';
+	
+ 	if(Q==1){
+		dataItem=dataQ4[1];
+		csv=dataQ1[4]+dataQ2[4]+dataQ3[4]+dataQ4[4];
+		lastCurrentQtotal=parseFloat(dataQ4[0].toFixed(2));
+		lastPrevQtotal=parseFloat(dataQ4[2].toFixed(2));
+		totalCurrentQtotal=parseFloat(dataQ1[0])+parseFloat(dataQ2[0])+parseFloat(dataQ3[0])+parseFloat(dataQ4[0]);
+		totalPrevQtotal=parseFloat(dataQ1[2])+parseFloat(dataQ2[2])+parseFloat(dataQ3[2])+parseFloat(dataQ4[2]);
+		chartCurrentData='['+dataQ1[0].toFixed(2)+','+dataQ2[0].toFixed(2)+','+dataQ3[0].toFixed(2)+','+dataQ4[0].toFixed(2)+']';
+		chartPrevData='['+dataQ1[2].toFixed(2)+','+dataQ2[2].toFixed(2)+','+dataQ3[2].toFixed(2)+','+dataQ4[2].toFixed(2)+']';
+		chartCat='["Q1","Q2","Q3","Q4"]';
+		chartCurrentData2='['+(parseFloat(dataQ1[0])+parseFloat(dataQ2[0])+parseFloat(dataQ3[0])+parseFloat(dataQ4[0]))+']';
+		chartPrevData2='['+(parseFloat(dataQ1[2])+parseFloat(dataQ2[2])+parseFloat(dataQ3[2])+parseFloat(dataQ4[2]))+']';      
+		chartCat2='["Q1 - Q4"]';
     }
   	if(Q>1){
       dataItem=dataQ2[1];
@@ -154,21 +145,21 @@ function suitelet(request, response){
       	if(j==4)
 			sublist.setLineItemValues(dataQ4[1]);
     }
-field2 = form.addField('custpage_html2', 'inlinehtml', "", null);
-field2.setDefaultValue('<style>text.highcharts-title {font-size: 12px!important;}#main_form {page-break-after: always;}#details-container table { width: 100%;}#details-container table tr th,#details-container table tr td { border-bottom: 1px solid silver; padding: 10px}.col-md-6 {width: 50%;  float: left;} .col-md-12 {width: 100%;} .col-md-3 {width: 25%;  float: left;  min-height: 600px;} .col-md-9 {width: 75%;}</style><select id="custpage_vendorid" name="custpage_vendorid"><option value="">Select Vendor</option><option value="25">DBA</option><option value="2346">Hawk Perfomrance</option><option value="4749">King Bearings</option><option value="17725">Pedders Suspension</option><option value="5559">Turbosmart</option><option value="2995">Whiteline</option><option value="3713">Xtreme Clutch</option></select><input name="custpage_userid" id="custpage_userid" style="display:none;" value="'+userid+'"><input name="custpage_currency" id="custpage_currency" style="display:none;" value="'+currency+'"><script>function exportCSV(){ var csv="<style>td{border:1px solid silver;}</style><table><tr><th></th><th>2017</th><th>2018</th><th>%</th></tr><tr><th>Last fiscal quarter ('+lastQ+'Q)</th><td>'+format(lastPrevQtotal,currency)+'</td><td>'+format(lastCurrentQtotal,currency)+'</td><td>'+procent(lastPrevQtotal,lastCurrentQtotal)+'</td></tr><tr><th>All fiscal quarter (1Q-'+lastQ+'Q)</th><td>'+format(totalPrevQtotal,currency)+'</td><td>'+format(totalCurrentQtotal,currency)+'</td><td>'+procent(totalPrevQtotal,totalCurrentQtotal)+'</td></tr><tr><th>Year to year</th><td>'+format(totalPrev,currency)+'</td><td>'+format(totalCurrent,currency)+'</td><td>'+procent(totalPrev,totalCurrent)+'</td></tr><tr><td colspan=3></td></tr>'+csv+'</table>"; var hiddenElement = document.createElement("a"); hiddenElement.href = "data:application/vnd.ms-excel," + encodeURI(csv);   hiddenElement.target = "_blank";  hiddenElement.download = "quarterly-report-'+lastQ+'.xls"; document.body.appendChild(hiddenElement); hiddenElement.click();}</script>');
-  
-  
-field1 = form.addField('custpage_html1', 'inlinehtml', "", null);
-field1.setDefaultValue('<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script><div class="col-md-6"><div id="chart-container"></div><div id="details-container"><table><tr><th></th><th>'+lastY+'</th><th>'+Y+'</th><th>%</th></tr><tr><th>Last fiscal quarter ('+lastQ+'Q)</th><td>'+format(lastPrevQtotal,currency)+'</td><td>'+format(lastCurrentQtotal,currency)+'</td><td>'+procent(lastPrevQtotal,lastCurrentQtotal)+'</td></tr><tr><th>All fiscal quarter (1Q-'+lastQ+'Q)</th><td>'+format(totalPrevQtotal,currency)+'</td><td>'+format(totalCurrentQtotal,currency)+'</td><td>'+procent(totalPrevQtotal,totalCurrentQtotal)+'</td></tr><tr><th>Year to year</th><td>'+format(totalPrev,currency)+'</td><td>'+format(totalCurrent,currency)+'</td><td>'+procent(totalPrev,totalCurrent)+'</td></tr></table></div></div><div class="col-md-3" id="chart-container2"></div><div class="col-md-3" id="chart-container3"></div>');
-  
-field3 = form.addField('custpage_html3', 'inlinehtml', "", null);
-field3.setDefaultValue('<script>Highcharts.chart("chart-container", { chart: {type: "column"}, title: {text: "Quarterly Sales Report"}, xAxis: { categories: '+chartCat+',}, yAxis: {min: 0,title: {text: "Amount ('+currency+')"} }, series: [{ name: "'+lastY+'", data: '+chartPrevData+' }, { name: "'+Y+'",color: "#26d073",data: '+chartCurrentData+' }]});</script>');  
-  
-field4 = form.addField('custpage_html4', 'inlinehtml', "", null);
-field4.setDefaultValue('<script>Highcharts.chart("chart-container2", { chart: {type: "column"}, title: {text: "Total Sales (Same Quarter Last Year)"}, xAxis: { categories: '+chartCat2+',}, yAxis: {min: 0,title: {text: "Amount ('+currency+')"} }, series: [{ name: "'+lastY+'", data: '+chartPrevData2+' }, { name: "'+Y+'",color: "#26d073",data: '+chartCurrentData2+' }]});</script>');    
-  
-field5 = form.addField('custpage_html5', 'inlinehtml', "", null);
-field5.setDefaultValue('<script>Highcharts.chart("chart-container3", { chart: {type: "column"}, title: {text: "Year to Year"}, xAxis: { categories: ["All Transactions Amount"],}, yAxis: {min: 0,title: {text: "Amount ('+currency+')"} }, series: [{ name: "'+lastY+'", data: ['+totalPrev+'] }, { name: "'+Y+'",color: "#26d073",data: ['+totalCurrent+'] }]});</script>');  
+	field2 = form.addField('custpage_html2', 'inlinehtml', "", null);
+	field2.setDefaultValue('<style>text.highcharts-title {font-size: 12px!important;}#main_form {page-break-after: always;}#details-container table { width: 100%;}#details-container table tr th,#details-container table tr td { border-bottom: 1px solid silver; padding: 10px}.col-md-6 {width: 50%;  float: left;} .col-md-12 {width: 100%;} .col-md-3 {width: 25%;  float: left;  min-height: 600px;} .col-md-9 {width: 75%;}</style><select id="custpage_vendorid" name="custpage_vendorid"><option value="">Select Vendor</option><option value="25">DBA</option><option value="2346">Hawk Perfomrance</option><option value="4749">King Bearings</option><option value="17725">Pedders Suspension</option><option value="5559">Turbosmart</option><option value="2995">Whiteline</option><option value="3713">Xtreme Clutch</option></select><input name="custpage_userid" id="custpage_userid" style="display:none;" value="'+userid+'"><input name="custpage_currency" id="custpage_currency" style="display:none;" value="'+currency+'"><script>function exportCSV(){ var csv="<style>td{border:1px solid silver;}</style><table><tr><th></th><th>2017</th><th>2018</th><th>%</th></tr><tr><th>Last fiscal quarter ('+lastQ+'Q)</th><td>'+format(lastPrevQtotal,currency)+'</td><td>'+format(lastCurrentQtotal,currency)+'</td><td>'+procent(lastPrevQtotal,lastCurrentQtotal)+'</td></tr><tr><th>All fiscal quarter (1Q-'+lastQ+'Q)</th><td>'+format(totalPrevQtotal,currency)+'</td><td>'+format(totalCurrentQtotal,currency)+'</td><td>'+procent(totalPrevQtotal,totalCurrentQtotal)+'</td></tr><tr><th>Year to year</th><td>'+format(totalPrev,currency)+'</td><td>'+format(totalCurrent,currency)+'</td><td>'+procent(totalPrev,totalCurrent)+'</td></tr><tr><td colspan=3></td></tr>'+csv+'</table>"; var hiddenElement = document.createElement("a"); hiddenElement.href = "data:application/vnd.ms-excel," + encodeURI(csv);   hiddenElement.target = "_blank";  hiddenElement.download = "quarterly-report-'+lastQ+'.xls"; document.body.appendChild(hiddenElement); hiddenElement.click();}</script>');
+
+
+	field1 = form.addField('custpage_html1', 'inlinehtml', "", null);
+	field1.setDefaultValue('<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script><div class="col-md-6"><div id="chart-container"></div><div id="details-container"><table><tr><th></th><th>'+lastY+'</th><th>'+Y+'</th><th>%</th></tr><tr><th>Last fiscal quarter ('+lastQ+'Q)</th><td>'+format(lastPrevQtotal,currency)+'</td><td>'+format(lastCurrentQtotal,currency)+'</td><td>'+procent(lastPrevQtotal,lastCurrentQtotal)+'</td></tr><tr><th>All fiscal quarter (1Q-'+lastQ+'Q)</th><td>'+format(totalPrevQtotal,currency)+'</td><td>'+format(totalCurrentQtotal,currency)+'</td><td>'+procent(totalPrevQtotal,totalCurrentQtotal)+'</td></tr><tr><th>Year to year</th><td>'+format(totalPrev,currency)+'</td><td>'+format(totalCurrent,currency)+'</td><td>'+procent(totalPrev,totalCurrent)+'</td></tr></table></div></div><div class="col-md-3" id="chart-container2"></div><div class="col-md-3" id="chart-container3"></div>');
+
+	field3 = form.addField('custpage_html3', 'inlinehtml', "", null);
+	field3.setDefaultValue('<script>Highcharts.chart("chart-container", { chart: {type: "column"}, title: {text: "Quarterly Sales Report"}, xAxis: { categories: '+chartCat+',}, yAxis: {min: 0,title: {text: "Amount ('+currency+')"} }, series: [{ name: "'+lastY+'", data: '+chartPrevData+' }, { name: "'+Y+'",color: "#26d073",data: '+chartCurrentData+' }]});</script>');  
+
+	field4 = form.addField('custpage_html4', 'inlinehtml', "", null);
+	field4.setDefaultValue('<script>Highcharts.chart("chart-container2", { chart: {type: "column"}, title: {text: "Total Sales (Same Quarter Last Year)"}, xAxis: { categories: '+chartCat2+',}, yAxis: {min: 0,title: {text: "Amount ('+currency+')"} }, series: [{ name: "'+lastY+'", data: '+chartPrevData2+' }, { name: "'+Y+'",color: "#26d073",data: '+chartCurrentData2+' }]});</script>');    
+
+	field5 = form.addField('custpage_html5', 'inlinehtml', "", null);
+	field5.setDefaultValue('<script>Highcharts.chart("chart-container3", { chart: {type: "column"}, title: {text: "Year to Year"}, xAxis: { categories: ["All Transactions Amount"],}, yAxis: {min: 0,title: {text: "Amount ('+currency+')"} }, series: [{ name: "'+lastY+'", data: ['+totalPrev+'] }, { name: "'+Y+'",color: "#26d073",data: ['+totalCurrent+'] }]});</script>');  
   
     form.addSubmitButton('Submit');
     form.addButton('custpage_button_csv','Export to Excel', 'exportCSV()');  
@@ -178,9 +169,7 @@ field5.setDefaultValue('<script>Highcharts.chart("chart-container3", { chart: {t
 ////////////////////////////////////////////
 
 function getTransactions(userid,date,year,vendorid){
-  	//var d = new Date();
-    //var y = d.getFullYear();
-  	var y = year;
+  var y = year;
 
   
   if(date=="q1"){
@@ -207,9 +196,7 @@ function getTransactions(userid,date,year,vendorid){
     columns[4] = new nlobjSearchColumn('currency', null, 'group');
     columns[5] = new nlobjSearchColumn('trandate', null, 'max');
   
-  
-	
-	
+
 	var filters = new Array();
     if(userid)
 		filters[0] = new nlobjSearchFilter('customersubof', null, 'is', userid);
