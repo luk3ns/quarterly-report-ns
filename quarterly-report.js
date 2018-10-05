@@ -1,15 +1,13 @@
-function suitelet(request, response){
+function suitelet(request, response){	
 	var Q=quarter_of_the_year(new Date());
-    var d = new Date();
-    var Y = d.getFullYear();
-    if(Q==1) Y=Y-1;
-	
-  	var lastY=Y-1;
-	
-  	if(Q>1)
-	var lastQ=Q-1; 
+	var d = new Date();
+	var Y = d.getFullYear();
+	if(Q==1) Y=Y-1;
+	var lastY=Y-1;
+	if(Q>1)
+		var lastQ=Q-1; 
   	else
-	var lastQ=4; 
+		var lastQ=4; 
 	
 	
 	
