@@ -1,10 +1,12 @@
 # Netsuite Quarterly Report
 
+Quarterly sales report with graphic presentation.
+
 Netsuite Suitelet, 
 SuiteScript version 1.0 
 
 ## Features
-- Presentation on charts sales amounts
+- Presentation sales amounts on charts 
 - Export to CSV
 - Filter by Customers and Vendors
 
