@@ -26,7 +26,6 @@ function suitelet(request, response){
 	var form = nlapiCreateForm(vendor+'Customer Quarterly Report <br><small>Summary '+lastQ+' Quarter '+Y+'</small>');
 	var date = request.getParameter('date');
 	
-	
 	var userid = request.getParameter('custpage_userid');
     if(userid==null || userid=="" || userid=="null") userid="";
     var currency = request.getParameter('custpage_currency');
@@ -225,10 +224,7 @@ function getTransactions(userid,date,year,vendorid){
 		var name=results1[i].getText('item', null, 'group'); 
 		var quantity=results1[i].getValue('quantity', null, 'sum');
         var lastPurchase=results1[i].getValue('trandate', null, 'max');
-      	//if(userid)
 		var amount=results1[i].getValue('fxamount', null, 'sum'); 
-		// else
-        //	var amount=results1[i].getValue('amount', null, 'sum'); 
 		total1+=parseFloat(amount);
 		data1[i]={'name':name, 'quantity':quantity, 'amount':amount,'lastpurchase':lastPurchase, 'currency':currency};
         csv1+="<tr><td>"+name+"</td><td>"+quantity+"</td><td>"+lastPurchase+"</td></tr>";
@@ -239,10 +235,7 @@ function getTransactions(userid,date,year,vendorid){
 		var name=results2[i].getText('item', null, 'group'); 
 		var lquantity=results2[i].getValue('quantity', null, 'sum'); 
         var llastPurchase=results2[i].getValue('trandate', null, 'max');
-		//	if(userid)
 		var lamount=results2[i].getValue('fxamount', null, 'sum'); 
-		//  else
-		// 	var amount=results2[i].getValue('amount', null, 'sum'); 
 		
 		total2+=parseFloat(lamount);
 		data2[i]={'name':name, 'quantity':lquantity, 'amount':lamount, 'lastpurchase':llastPurchase, 'currency':currency};
@@ -263,14 +256,12 @@ function quarter_of_the_year(date){
     return (Math.ceil(month / 3));
 }
 function procent(prev,current){
-	var p=(current*100)/prev;
-	p=parseFloat(p);
+	var p=(parseFloat(current)*100)/parseFloat(prev);
 	p=p-100;
-	p=p.toFixed(2);
 	if(p>0)
-	p="<span style='color: green;'>+"+p+"%</span>";
+		p="<span style='color: green;'>+"+p.toFixed(2)+"%</span>";
 	else
-    p="<span style='color: red;'>"+p+"%</span>";
+    	p="<span style='color: red;'>"+p.toFixed(2)+"%</span>";
 	return p;
 }
 function format(n, currency) {
