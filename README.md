@@ -1,6 +1,6 @@
 # Netsuite Quarterly Report
 
-Quarterly sales report with graphic presentation.
+Quarterly sales report with charts.
 
 Netsuite Suitelet, 
 SuiteScript version 1.0 
