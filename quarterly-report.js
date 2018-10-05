@@ -100,7 +100,8 @@ function suitelet(request, response){
 		chartCurrentData2='['+(parseFloat(dataQ1[0].toFixed(2))+parseFloat(dataQ2[0].toFixed(2)))+']';
 		chartPrevData2='['+(parseFloat(dataQ1[2].toFixed(2))+parseFloat(dataQ2[2].toFixed(2)))+']';   
 		chartCat2='["Q1 - Q2"]';
-		}if(Q>3){
+		}
+	if(Q>3){
 		dataItem=dataQ3[1];
 		csv=dataQ1[4]+dataQ2[4]+dataQ3[4];
 		lastCurrentQtotal=parseFloat(dataQ3[0].toFixed(2));
@@ -113,7 +114,8 @@ function suitelet(request, response){
 		chartCurrentData2='['+(parseFloat(dataQ1[0].toFixed(2))+parseFloat(dataQ2[0].toFixed(2))+parseFloat(dataQ3[0].toFixed(2)))+']';
 		chartPrevData2='['+(parseFloat(dataQ1[2].toFixed(2))+parseFloat(dataQ2[2].toFixed(2))+parseFloat(dataQ3[2].toFixed(2)))+']';   
 		chartCat2='["Q1 - Q3"]';
-		}if(Q>4){
+		}
+	if(Q>4){
 		dataItem=dataQ4[1];
 		csv=dataQ1[4]+dataQ2[4]+dataQ3[4]+dataQ4[4];
 		lastCurrentQtotal=parseFloat(dataQ4[0].toFixed(2));
@@ -134,13 +136,13 @@ function suitelet(request, response){
         sublist.addField('quantity', 'text', 'Qty. sold');
 		sublist.addField('lastpurchase', 'text', 'last Purchase Date');
       	if(j==1)
-		sublist.setLineItemValues(dataQ1[1]);
+			sublist.setLineItemValues(dataQ1[1]);
       	if(j==2)
-		sublist.setLineItemValues(dataQ2[1]);
+			sublist.setLineItemValues(dataQ2[1]);
       	if(j==3)
-		sublist.setLineItemValues(dataQ3[1]);
+			sublist.setLineItemValues(dataQ3[1]);
       	if(j==4)
-		sublist.setLineItemValues(dataQ4[1]);
+			sublist.setLineItemValues(dataQ4[1]);
 	}
 	field2 = form.addField('custpage_html2', 'inlinehtml', "", null);
 	field2.setDefaultValue('<style>text.highcharts-title {font-size: 12px!important;}#main_form {page-break-after: always;}#details-container table { width: 100%;}#details-container table tr th,#details-container table tr td { border-bottom: 1px solid silver; padding: 10px}.col-md-6 {width: 50%;  float: left;} .col-md-12 {width: 100%;} .col-md-3 {width: 25%;  float: left;  min-height: 600px;} .col-md-9 {width: 75%;}</style><select id="custpage_vendorid" name="custpage_vendorid"><option value="">Select Vendor</option><option value="vendor-internalid">Vendor Name</option><option value="vendor-internalid">Vendor Name</option><option value="vendor-internalid">Vendor Name</option><option value="vendor-internalid">Vendor Name</option><option value="vendor-internalid">Vendor Name</option><option value="vendor-internalid">Vendor Name</option><option value="vendor-internalid">Vendor Name</option></select><input name="custpage_userid" id="custpage_userid" style="display:none;" value="'+userid+'"><input name="custpage_currency" id="custpage_currency" style="display:none;" value="'+currency+'"><script>function exportCSV(){ var csv="<style>td{border:1px solid silver;}</style><table><tr><th></th><th>2017</th><th>2018</th><th>%</th></tr><tr><th>Last fiscal quarter ('+lastQ+'Q)</th><td>'+format(lastPrevQtotal,currency)+'</td><td>'+format(lastCurrentQtotal,currency)+'</td><td>'+procent(lastPrevQtotal,lastCurrentQtotal)+'</td></tr><tr><th>All fiscal quarter (1Q-'+lastQ+'Q)</th><td>'+format(totalPrevQtotal,currency)+'</td><td>'+format(totalCurrentQtotal,currency)+'</td><td>'+procent(totalPrevQtotal,totalCurrentQtotal)+'</td></tr><tr><th>Year to year</th><td>'+format(totalPrev,currency)+'</td><td>'+format(totalCurrent,currency)+'</td><td>'+procent(totalPrev,totalCurrent)+'</td></tr><tr><td colspan=3></td></tr>'+csv+'</table>"; var hiddenElement = document.createElement("a"); hiddenElement.href = "data:application/vnd.ms-excel," + encodeURI(csv);   hiddenElement.target = "_blank";  hiddenElement.download = "quarterly-report-'+lastQ+'.xls"; document.body.appendChild(hiddenElement); hiddenElement.click();}</script>');
@@ -196,9 +198,9 @@ function getTransactions(userid,date,year,vendorid){
 	
 	var filters = new Array();
     if(userid)
-	filters[0] = new nlobjSearchFilter('customersubof', null, 'is', userid);
+		filters[0] = new nlobjSearchFilter('customersubof', null, 'is', userid);
 	else  
-	filters[0] = new nlobjSearchFilter('type', null, 'is', 'CustInvc');
+		filters[0] = new nlobjSearchFilter('type', null, 'is', 'CustInvc');
 	
 	filters[1] = new nlobjSearchFilter('trandate', null, 'onorafter', startdate+y);
 	filters[2] = new nlobjSearchFilter('trandate', null, 'onorbefore', endtdate+y);
