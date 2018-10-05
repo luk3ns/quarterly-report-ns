@@ -15,7 +15,7 @@ SuiteScript version 1.0
   - Refactoring
   
 ## Technologies
-  - [https://code.highcharts.com/highcharts.js] -  JavaScript charting framework
+  - https://code.highcharts.com/highcharts.js -  JavaScript charting framework
 
 ## Screens
 [![Report](https://github.com/luk3ns/Quarterly-Report-NS/blob/master/qr.JPG?raw=true)]
