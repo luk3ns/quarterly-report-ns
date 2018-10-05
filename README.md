@@ -1,8 +1,9 @@
-# quarterly-report-ns
+# Netsuite Quarterly Report
+
 Netsuite Suitelet, 
 SuiteScript version 1.0 
 
-##Features
+## Features
 - Presentation on charts sales amounts
 - Export to CSV
 - Filter by Customers and Vendors
