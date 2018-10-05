@@ -18,4 +18,5 @@ SuiteScript version 1.0
   - https://code.highcharts.com/highcharts.js -  JavaScript charting framework
 
 ## Screens
-[![Report](https://github.com/luk3ns/Quarterly-Report-NS/blob/master/qr.JPG?raw=true)]
+
+[![Report](https://github.com/luk3ns/Quarterly-Report-NS/blob/master/qr.JPG?raw=true)](https://github.com/luk3ns/Quarterly-Report-NS/blob/master/qr.JPG?raw=true)
